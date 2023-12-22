@@ -2,38 +2,13 @@
 # SPDX-License-Identifier: MPL-2.0
 
 variable "instance_count" {
-  type = number
   description = "value for EC2 instance count"
+  type = number
 }
 
-# TODO Lookup from workspace
-variable "vpc_id" {
-  type        = string
-  description = "AWS VPC ID"
-}
-
-# TODO Lookup from workspace
-variable "vpc_cidr_block" {
-  type        = string
-  description = "AWS CIDR block"
-}
-
-# TODO Lookup from workspace
-variable "subnet_id" {
-  type        = string
-  description = "AWS subnet (public)"
-}
-
-# TODO Lookup from workspace
-variable "cluster_id" {
-  type        = string
-  description = "HCP Consul ID"
-}
-
-# TODO Lookup from workspace
-variable "hcp_consul_security_group_id" {
-  type        = string
-  description = "AWS Security group for HCP Consul"
+variable "vpc-workspace-name" {
+  description = "Please add the workspace name you choose when deploying the partner-consul-sd-vpc-deployment module"
+  type = string
 }
 
 variable "hcp_client_id" {
@@ -58,10 +33,17 @@ variable "aws_access_key" {
   type = string
   sensitive = false
 }
+
 variable "aws_secret_key" {
   description = "AWS Secret Access Key for the account to be peered to"
   type = string
   sensitive = true
+}
+
+variable "hpl_tfc_organisation_name" {
+  description = "TFC Org name"
+  type = string
+  default = "value"
 }
 
 #TODO set defaults for the hcp

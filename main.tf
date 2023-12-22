@@ -18,13 +18,17 @@ provider "hcp" {
   project_id    = var.hpl_hcp_project_id
 }
 
+data "tfe_outputs" "vpc-deployment" {
+  organization = var.hpl_tfc_organisation_name
+  workspace = var.vpc-workspace-name
+}
 
 data "aws_vpc" "selected" {
-  id = var.vpc_id
+  id = data.tfe_outputs.vpc-deployment.outputs.vpc_id
 }
 
 data "aws_subnet" "selected" {
-  id = var.subnet_id
+  id = data.tfe_outputs.vpc-deployment.outputs.vpc_subnet_id
 }
 
 data "hcp_hvn" "selected" {
@@ -32,7 +36,7 @@ data "hcp_hvn" "selected" {
 }
 
 data "hcp_consul_cluster" "selected" {
-  cluster_id = var.cluster_id
+  cluster_id = data.tfe_outputs.vpc-deployment.outputs.consul_cluster_id
 }
 
 resource "hcp_consul_cluster_root_token" "token" {
@@ -88,9 +92,9 @@ resource "aws_instance" "consul_client" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = "t2.small"
   associate_public_ip_address = true
-  subnet_id                   = var.subnet_id
+  subnet_id                   = data.tfe_outputs.vpc-deployment.outputs.vpc_subnet_id
   vpc_security_group_ids = [
-    var.hcp_consul_security_group_id,
+    data.tfe_outputs.vpc-deployment.outputs.aws_security_group_id,
     aws_security_group.allow_ssh.id
   ]
   # key_name = aws_key_pair.consul_client.key_name
@@ -105,7 +109,7 @@ resource "aws_instance" "consul_client" {
         service_name = "consul",
         service_cmd  = "/usr/bin/consul agent -data-dir /var/consul -config-dir=/etc/consul.d/",
       })),
-      vpc_cidr = var.vpc_cidr_block
+      vpc_cidr = data.tfe_outputs.vpc-deployment.outputs.vpc_cidr_block
     })),
   })
 
