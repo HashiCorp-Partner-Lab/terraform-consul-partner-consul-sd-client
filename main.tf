@@ -8,12 +8,14 @@ locals {
 
 provider "aws" {
   region = local.aws_region
+  access_key  = var.aws_access_key
+  secret_key  = var.aws_secret_key
 }
 
 provider "hcp" {
   client_id     = var.hcp_client_id
   client_secret = var.hcp_client_secret
-  project_id    = var.hcp_project_id
+  project_id    = var.hpl_hcp_project_id
 }
 
 
