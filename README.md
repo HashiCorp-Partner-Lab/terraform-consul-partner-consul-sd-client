@@ -21,7 +21,7 @@ The primary purpose of this Terraform configuration is to automate the deploymen
 
 ### HashiCorp Cloud Platform (HCP) Cluster Setup
 
-The following will be created using the HCP-Internal-Consul module
+The following will be created using the **partner-consul-sd-vpc-deployment** module
 
 1. **HCP Consul Cluster:** Ensure that a HashiCorp Consul Service cluster is provisioned and running on HashiCorp Cloud Platform (HCP). The script assumes the availability of a functioning Consul cluster.
 
@@ -41,59 +41,58 @@ The following will be created using the HCP-Internal-Consul module
 
 7. **VPC Peering Connection:** Establish VPC peering connections between the VPC hosting the HCP Consul cluster and the VPC where the EC2 instances will be deployed. Ensure the necessary route table entries for seamless communication.
 
-### Recommended Environment Variables
-
-To enhance configurability and security, consider using environment variables for sensitive information:
-
-- `TF_VAR_cluster_id`: HCP Consul cluster ID.
-- `TF_VAR_hcp_consul_security_group_id`: AWS Security group ID for HCP Consul.
-- `TF_VAR_instance_count`: Number of EC2 instances to deploy.
-- `TF_VAR_subnet_id`: AWS subnet ID for EC2 deployment.
-- `TF_VAR_vpc_cidr_block`: CIDR block for the AWS VPC.
-- `TF_VAR_vpc_id`: AWS VPC ID.
-
 Ensure these environment variables are set or exported before running the Terraform script.
+
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+No requirements.
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
-| <a name="provider_hcp"></a> [hcp](#provider\_hcp) | >= 0.22 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_hcp"></a> [hcp](#provider\_hcp) | n/a |
+| <a name="provider_tfe"></a> [tfe](#provider\_tfe) | n/a |
 
 ## Modules
 
-No modules used.
+No modules.
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aws_instance.consul_client](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | AWS EC2 Instance |
-| [aws_security_group.allow_ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | AWS Security Group |
-| [hcp_consul_cluster_root_token.token](https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/resources/consul_cluster_root_token) | HCP Consul Root Token |
-| [aws_ami.ubuntu](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | AWS AMI (Ubuntu) |
-| [aws_subnet.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | AWS Subnet |
-| [aws_vpc.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) | AWS VPC |
-| [hcp_consul_cluster.selected](https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/data-sources/consul_cluster) | HCP Consul Cluster |
-| [hcp_hvn.selected](https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/data-sources/hvn) | HCP HashiCorp Virtual Network |
+| [aws_instance.consul_client](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
+| [aws_security_group.allow_ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [hcp_consul_cluster_root_token.token](https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/resources/consul_cluster_root_token) | resource |
+| [aws_ami.ubuntu](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
+| [aws_subnet.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
+| [aws_vpc.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) | data source |
+| [hcp_consul_cluster.selected](https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/data-sources/consul_cluster) | data source |
+| [hcp_hvn.selected](https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/data-sources/hvn) | data source |
+| [tfe_outputs.vpc-deployment](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/data-sources/outputs) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_cluster_id"></a> [cluster\_id](#input\_cluster\_id) | HCP Consul ID | `string` | - | yes |
-| <a name="input_hcp_consul_security_group_id"></a> [hcp\_consul\_security\_group\_id](#input\_hcp\_consul\_security\_group\_id) | AWS Security group for HCP Consul | `string` | - | yes |
-| <a name="input_instance_count"></a> [instance\_count](#input\_instance\_count) | Number of EC2 instances to create | `number` | `1` | no |
-| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | AWS subnet (public) | `string` | - | yes |
-| <a name="input_vpc_cidr_block"></a> [vpc\_cidr\_block](#input\_vpc\_cidr\_block) | AWS CIDR block for VPC | `string` | - | yes |
-| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | AWS VPC ID | `string` | - | yes |
+| <a name="input_aws_access_key"></a> [aws\_access\_key](#input\_aws\_access\_key) | AWS Access Key ID for the account to be peered to | `string` | n/a | yes |
+| <a name="input_aws_secret_key"></a> [aws\_secret\_key](#input\_aws\_secret\_key) | AWS Secret Access Key for the account to be peered to | `string` | n/a | yes |
+| <a name="input_hcp_client_id"></a> [hcp\_client\_id](#input\_hcp\_client\_id) | Your HashiCorp Cloud Platform client ID. | `string` | `"value"` | no |
+| <a name="input_hcp_client_secret"></a> [hcp\_client\_secret](#input\_hcp\_client\_secret) | The client secret key associated with your HCP account. | `string` | `"value"` | no |
+| <a name="input_hpl_hcp_project_id"></a> [hpl\_hcp\_project\_id](#input\_hpl\_hcp\_project\_id) | The project key for your HCP account. | `string` | `"value"` | no |
+| <a name="input_hpl_tfc_organisation_name"></a> [hpl\_tfc\_organisation\_name](#input\_hpl\_tfc\_organisation\_name) | TFC Org name | `string` | `"value"` | no |
+| <a name="input_instance_count"></a> [instance\_count](#input\_instance\_count) | value for EC2 instance count | `number` | n/a | yes |
+| <a name="input_vpc-workspace-name"></a> [vpc-workspace-name](#input\_vpc-workspace-name) | Please add the workspace name you choose when deploying the partner-consul-sd-vpc-deployment module | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_consul_root_token"></a> [consul\_root\_token](#output\_consul\_root\_token) | HCP Consul Root ACL Token |
-| <a name="output_consul_url"></a> [consul\_url](#output\_consul\_url) | URL for accessing HCP Consul UI |
-| <a name="output_ec2_client"></a> [ec2\_client](#output\_ec2\_client) | Public IP address of the EC2 instance |
-| <a name="output_next_steps"></a> [next\_steps](#output\_next\_steps) | Instructions for the next steps after deployment |
+| <a name="output_consul_root_token"></a> [consul\_root\_token](#output\_consul\_root\_token) | HCP Consul root ACL token |
+| <a name="output_consul_url"></a> [consul\_url](#output\_consul\_url) | HCP Consul UI |
+| <a name="output_ec2_client"></a> [ec2\_client](#output\_ec2\_client) | EC2 public IP |
+| <a name="output_next_steps"></a> [next\_steps](#output\_next\_steps) | n/a |
+<!-- END_TF_DOCS -->
