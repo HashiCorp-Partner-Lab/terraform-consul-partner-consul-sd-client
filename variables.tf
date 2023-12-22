@@ -26,6 +26,7 @@ variable "hcp_client_secret" {
 variable "hpl_hcp_project_id" {
   description = "The project key for your HCP account."
   type = string
+  default = "value"
 }
 
 variable "aws_access_key" {
