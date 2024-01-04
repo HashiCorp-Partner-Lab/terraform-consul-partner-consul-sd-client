@@ -22,11 +22,11 @@ data "tfe_outputs" "vpc-deployment" {
 }
 
 data "aws_vpc" "selected" {
-  id = data.tfe_outputs.vpc-deployment.outputs.vpc_id
+  id = data.tfe_outputs.vpc-deployment.values.vpc_id
 }
 
 data "aws_subnet" "selected" {
-  id = data.tfe_outputs.vpc-deployment.outputs.vpc_subnet_id
+  id = data.tfe_outputs.vpc-deployment.values.vpc_subnet_id
 }
 
 data "hcp_hvn" "selected" {
@@ -34,7 +34,7 @@ data "hcp_hvn" "selected" {
 }
 
 data "hcp_consul_cluster" "selected" {
-  cluster_id = data.tfe_outputs.vpc-deployment.outputs.consul_cluster_id
+  cluster_id = data.tfe_outputs.vpc-deployment.values.consul_cluster_id
 }
 
 resource "hcp_consul_cluster_root_token" "token" {
