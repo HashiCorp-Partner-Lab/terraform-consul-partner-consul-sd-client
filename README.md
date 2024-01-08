@@ -43,6 +43,21 @@ The following will be created using the **partner-consul-sd-vpc-deployment** mod
 
 Ensure these environment variables are set or exported before running the Terraform script.
 
+## AWS Permisions Required
+You AWS Key/Secret will require the following permisions:
+
+| AWS Permission                       | Purpose                                        |
+|--------------------------------------|------------------------------------------------|
+| `ec2:RunInstances`                   | Launch EC2 instances                           |
+| `ec2:DescribeInstances`              | Describe EC2 instances                         |
+| `ec2:DescribeVpcs`                   | Describe Virtual Private Clouds (VPCs)         |
+| `ec2:DescribeSubnets`                | Describe subnets                               |
+| `ec2:CreateSecurityGroup`            | Create security groups for EC2 instances      |
+| `ec2:DescribeSecurityGroups`         | Describe security groups                       |
+| `ec2:ImportKeyPair`                  | Import key pairs for EC2 instances             |
+| `ec2:CreateTags`                     | Create tags for EC2 instances and resources    |
+| `ec2:DescribeImages`                 | Describe images (AMIs)                         |
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
