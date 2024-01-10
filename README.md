@@ -68,6 +68,7 @@ No requirements.
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_consul"></a> [consul](#provider\_consul) | n/a |
 | <a name="provider_hcp"></a> [hcp](#provider\_hcp) | n/a |
 | <a name="provider_tfe"></a> [tfe](#provider\_tfe) | n/a |
 
@@ -81,6 +82,7 @@ No modules.
 |------|------|
 | [aws_instance.consul_client](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
 | [aws_security_group.allow_ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [consul_acl_token.user_token](https://registry.terraform.io/providers/hashicorp/consul/latest/docs/resources/acl_token) | resource |
 | [hcp_consul_cluster_root_token.token](https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/resources/consul_cluster_root_token) | resource |
 | [aws_ami.ubuntu](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
 | [aws_subnet.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
@@ -108,6 +110,7 @@ No modules.
 |------|-------------|
 | <a name="output_consul_root_token"></a> [consul\_root\_token](#output\_consul\_root\_token) | HCP Consul root ACL token |
 | <a name="output_consul_url"></a> [consul\_url](#output\_consul\_url) | HCP Consul UI |
+| <a name="output_consul_user_token"></a> [consul\_user\_token](#output\_consul\_user\_token) | HCP Consul user ACL token |
 | <a name="output_ec2_client"></a> [ec2\_client](#output\_ec2\_client) | EC2 public IP |
 | <a name="output_next_steps"></a> [next\_steps](#output\_next\_steps) | n/a |
 <!-- END_TF_DOCS -->
