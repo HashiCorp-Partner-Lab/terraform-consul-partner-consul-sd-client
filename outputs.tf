@@ -18,7 +18,7 @@ output "consul_root_token" {
 }
 
 output "consul_user_token" {
-  value = consul_acl_token.user_token.id
+  value = data.consul_acl_token_secret_id.user_token.secret_id
   description = "HCP Consul user ACL token"
 }
 

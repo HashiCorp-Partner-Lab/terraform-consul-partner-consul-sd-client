@@ -138,7 +138,11 @@ resource "consul_acl_policy" "user" {
     RULE
 }
 
-resource "consul_acl_token" "user_token" {
+resource "consul_acl_token" "user_acl_token" {
   description = "my test token"
   policies    = [consul_acl_policy.user.name]
+}
+
+data "consul_acl_token_secret_id" "user_token" {
+    accessor_id = consul_acl_token.user_acl_token.id
 }
