@@ -126,7 +126,19 @@ resource "aws_instance" "consul_client" {
   }
 }
 
+resource "consul_acl_policy" "user" {
+  name  = "user"
+  rules = <<-RULE
+    node_prefix "" {
+      policy = "read"
+    }
+    service_prefix "" {
+      policy = "read"
+    }
+    RULE
+}
+
 resource "consul_acl_token" "user_token" {
   description = "my test token"
-  policies    = ["root"]
+  policies    = [consul_acl_policy.user.name]
 }
