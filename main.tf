@@ -4,6 +4,11 @@
 locals {
   aws_region = "us-west-2"
   hvn_region = "us-west-2"
+  consul_address = data.hcp_consul_cluster.selected.public_endpoint ? (
+    data.hcp_consul_cluster.selected.consul_public_endpoint_url
+    ) : (
+    data.hcp_consul_cluster.selected.consul_private_endpoint_url
+  )
 }
 
 provider "aws" {
@@ -17,7 +22,7 @@ provider "hcp" {
 }
 
 provider "consul" {
-  address    = aws_instance.consul_client[0].public_ip
+  address    = local.consul_address
   token      = hcp_consul_cluster_root_token.token.secret_id
 }
 

@@ -7,11 +7,7 @@ output "ec2_client" {
 }
 
 output "consul_url" {
-  value = data.hcp_consul_cluster.selected.public_endpoint ? (
-    data.hcp_consul_cluster.selected.consul_public_endpoint_url
-    ) : (
-    data.hcp_consul_cluster.selected.consul_private_endpoint_url
-  )
+  value = local.consul_address
   description = "HCP Consul UI"
 }
 
