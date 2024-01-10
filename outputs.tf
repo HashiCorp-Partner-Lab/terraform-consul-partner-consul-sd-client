@@ -17,7 +17,13 @@ output "consul_url" {
 
 output "consul_root_token" {
   value       = hcp_consul_cluster_root_token.token.secret_id
+  sensitive   = true
   description = "HCP Consul root ACL token"
+}
+
+output "consul_user_token" {
+  value = consul_acl_token.user_token.id
+  description = "HCP Consul user ACL token"
 }
 
 output "next_steps" {

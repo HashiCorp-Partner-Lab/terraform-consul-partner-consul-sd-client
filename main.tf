@@ -16,6 +16,11 @@ provider "hcp" {
   project_id    = var.hpl_hcp_project_id
 }
 
+provider "consul" {
+  address    = aws_instance.consul_client[0].public_ip
+  token      = hcp_consul_cluster_root_token.token.secret_id
+}
+
 data "tfe_outputs" "vpc-deployment" {
   organization = var.hpl_tfc_organisation_name
   workspace = var.vpc-workspace-name
@@ -114,4 +119,9 @@ resource "aws_instance" "consul_client" {
   tags = {
     Name = "hcp-consul-client-${count.index}"
   }
+}
+
+resource "consul_acl_token" "user_token" {
+  description = "my test token"
+  policies    = ["root"]
 }
