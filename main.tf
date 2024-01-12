@@ -150,9 +150,9 @@ data "consul_acl_token_secret_id" "user_token" {
 resource "tfe_variable_set" "consul_vs" {
   name         = "Consul Client Variables"
   description  = "Consul Client Variables"
-  organization = data.tfe_organization.org_name.name
+  organization = var.hpl_tfc_organisation_name
   global       = true
-  depends_on   = [hcp_consul_cluster.partner_hcp]
+  depends_on   = [consul_acl_token_secret_id.user_token]
 }
 
 resource "tfe_variable" "consul_addr" {
