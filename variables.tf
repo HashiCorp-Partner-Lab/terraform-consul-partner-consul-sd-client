@@ -6,6 +6,12 @@ variable "instance_count" {
   type = number
 }
 
+variable "region" {
+  description = "The region of the HCP HVN and Consul cluster."
+  type        = string
+  default     = "eu-west-2"
+}
+
 variable "vpc-workspace-name" {
   description = "Please add the workspace name you choose when deploying the partner-consul-sd-vpc-deployment module"
   type = string

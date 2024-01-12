@@ -82,11 +82,13 @@ No modules.
 |------|------|
 | [aws_instance.consul_client](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
 | [aws_security_group.allow_ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
-| [consul_acl_token.user_token](https://registry.terraform.io/providers/hashicorp/consul/latest/docs/resources/acl_token) | resource |
+| [consul_acl_policy.user](https://registry.terraform.io/providers/hashicorp/consul/latest/docs/resources/acl_policy) | resource |
+| [consul_acl_token.user_acl_token](https://registry.terraform.io/providers/hashicorp/consul/latest/docs/resources/acl_token) | resource |
 | [hcp_consul_cluster_root_token.token](https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/resources/consul_cluster_root_token) | resource |
 | [aws_ami.ubuntu](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
 | [aws_subnet.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
 | [aws_vpc.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) | data source |
+| [consul_acl_token_secret_id.user_token](https://registry.terraform.io/providers/hashicorp/consul/latest/docs/data-sources/acl_token_secret_id) | data source |
 | [hcp_consul_cluster.selected](https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/data-sources/consul_cluster) | data source |
 | [hcp_hvn.selected](https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/data-sources/hvn) | data source |
 | [tfe_outputs.vpc-deployment](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/data-sources/outputs) | data source |
@@ -102,6 +104,7 @@ No modules.
 | <a name="input_hpl_hcp_project_id"></a> [hpl\_hcp\_project\_id](#input\_hpl\_hcp\_project\_id) | The project key for your HCP account. | `string` | `"value"` | no |
 | <a name="input_hpl_tfc_organisation_name"></a> [hpl\_tfc\_organisation\_name](#input\_hpl\_tfc\_organisation\_name) | TFC Org name | `string` | `"value"` | no |
 | <a name="input_instance_count"></a> [instance\_count](#input\_instance\_count) | value for EC2 instance count | `number` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | The region of the HCP HVN and Consul cluster. | `string` | `"eu-west-2"` | no |
 | <a name="input_vpc-workspace-name"></a> [vpc-workspace-name](#input\_vpc-workspace-name) | Please add the workspace name you choose when deploying the partner-consul-sd-vpc-deployment module | `string` | n/a | yes |
 
 ## Outputs

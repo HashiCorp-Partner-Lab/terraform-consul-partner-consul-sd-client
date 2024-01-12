@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: MPL-2.0
 
 locals {
-  aws_region = "us-west-2"
-  hvn_region = "us-west-2"
+  aws_region     = var.region
+  hvn_region = var.region
   consul_address = data.hcp_consul_cluster.selected.public_endpoint ? (
     data.hcp_consul_cluster.selected.consul_public_endpoint_url
     ) : (
@@ -12,7 +12,7 @@ locals {
 }
 
 provider "aws" {
-  region = local.aws_region
+  region      = local.aws_region
   access_key  = var.aws_access_key
   secret_key  = var.aws_secret_key
 }
