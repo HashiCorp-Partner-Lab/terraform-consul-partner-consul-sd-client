@@ -11,18 +11,6 @@ output "consul_url" {
   description = "HCP Consul UI"
 }
 
-output "consul_root_token" {
-  value       = hcp_consul_cluster_root_token.token.secret_id
-  sensitive   = true
-  description = "HCP Consul root ACL token"
-}
-
-output "consul_user_token" {
-  value = consul_acl_token.user_acl_token.id
-  sensitive   = true
-  description = "HCP Consul user ACL token"
-}
-
 output "next_steps" {
   value = "Hashicups Application will be ready in ~2 minutes. Use 'terraform output consul_root_token' to retrieve the root token."
 }

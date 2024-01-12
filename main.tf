@@ -125,36 +125,3 @@ resource "aws_instance" "consul_client" {
     Name = "hcp-consul-client-${count.index}"
   }
 }
-
-resource "consul_acl_policy" "user" {
-  name  = "user"
-  rules = <<-RULE
-    node_prefix "" {
-      policy = "read"
-    }
-    service_prefix "" {
-      policy = "read"
-    }
-    RULE
-}
-
-resource "consul_acl_token" "user_acl_token" {
-  description = "my test token"
-  policies    = [consul_acl_policy.user.name]
-}
-
-resource "tfe_variable_set" "consul_vs" {
-  name         = "Consul Client Variables"
-  description  = "Consul Client Variables"
-  organization = var.hpl_tfc_organisation_name
-  global       = true
-  depends_on   = [consul_acl_token.user_acl_token]
-}
-
-resource "tfe_variable" "consul_addr" {
-  key             = "consul_user_token"
-  value           = consul_acl_token.user_acl_token.id
-  description     = "Consul User Token"
-  variable_set_id = tfe_variable_set.consul_vs.id
-  category        = "terraform"
-}
