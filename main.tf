@@ -146,3 +146,19 @@ resource "consul_acl_token" "user_acl_token" {
 data "consul_acl_token_secret_id" "user_token" {
     accessor_id = consul_acl_token.user_acl_token.id
 }
+
+resource "tfe_variable_set" "consul_vs" {
+  name         = "Consul Client Variables"
+  description  = "Consul Client Variables"
+  organization = data.tfe_organization.org_name.name
+  global       = true
+  depends_on   = [hcp_consul_cluster.partner_hcp]
+}
+
+resource "tfe_variable" "consul_addr" {
+  key             = "consul_user_token"
+  value           = data.consul_acl_token_secret_id.user_token.secret_id
+  description     = "Consul User Token"
+  variable_set_id = tfe_variable_set.consul_vs.id
+  category        = "terraform"
+}
